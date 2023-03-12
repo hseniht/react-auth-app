@@ -17,10 +17,12 @@ export default EventsPage;
 // Note: loader functions is not a react component, so no hooks, and states
 // However,this executes in the browser, so we can use browser API's
 export async function loader() {
-  const response = await fetch("http://localhost:8080/events");
+  const response = await fetch("http://localhost:8080/events1");
 
   if (!response.ok) {
-    throw { message: `Could not fetch eventss.` };
+    throw new Response(JSON.stringify({ message: "Could not fetch events." }), {
+      status: 500,
+    });
     //ALT WAY: for error
     // return { isError: true, message: "Could not fetch events" };
   } else {
