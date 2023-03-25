@@ -21,9 +21,13 @@ export const action = async ({ request, params }) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(eventData)
+    body: JSON.stringify(eventData),
   });
-  console.log("response tk", response);
+
+  if (response.status === 422) {
+    return response; //for validation
+  }
+
   if (!response.ok) {
     throw json({ message: "Could not save event." }, { status: 500 });
   }
