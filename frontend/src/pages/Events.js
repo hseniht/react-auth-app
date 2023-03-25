@@ -13,9 +13,7 @@ function EventsPage() {
   // const events = data.events;
   // return <EventsList events={events} />;
 
-  {
     /* <Await> will return function once promise resolve */
-  }
   return (
     <Suspense fallback={<p style={{ textAlign: "center" }}>Loading ...</p>}>
       <Await resolve={events}>
