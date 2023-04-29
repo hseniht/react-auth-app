@@ -6,6 +6,7 @@ const {
   isValidDate,
   isValidImageUrl,
 } = require("../util/validation");
+const { checkAuth } = require("../util/auth");
 
 const router = express.Router();
 
@@ -28,6 +29,9 @@ router.get("/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+//middleware that checks validity of token attached
+router.use(checkAuth);
 
 router.post("/", async (req, res, next) => {
   const data = req.body;
