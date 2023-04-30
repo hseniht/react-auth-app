@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import EventItem from "../components/EventItem";
 import EventsList from "../components/EventsList";
+import { getAuthToken } from "../util/auth";
 
 const EventDetailPage = () => {
   const { event, events } = useRouteLoaderData("event-detail"); //must follow id defined in route
@@ -77,8 +78,13 @@ export async function loader({ request, params }) {
 
 export const action = async ({ params, request }) => {
   const eventId = params.eventId;
+
+  const token = getAuthToken();
   const response = await fetch("http://localhost:8080/events/" + eventId, {
     method: request.method, //dynamic way to get 'DELETE'
+    headers: {
+      "Authorization" : "Bearer " + token, //backend expects it
+    },
   });
   if (!response.ok) {
     throw json(
